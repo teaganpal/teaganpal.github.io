@@ -1,0 +1,130 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Figtree", system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-mist: var(--mist);
+  --color-blush: var(--blush);
+  --color-mauve: var(--mauve);
+  --color-sky: var(--sky);
+  --color-honey: var(--honey);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+}
+
+:root {
+  /* ✏️ Site palette — change these hex values to recolor the whole site. */
+  --radius: 0.75rem;
+
+  /* Base */
+  --background: #F6F0EC;         /* warm linen — page background */
+  --paper: #FFFCFA;              /* warm white — cards, polaroids */
+  --foreground: #2A2230;         /* aubergine ink — body text */
+  --ink: #2A2230;
+  --muted: #EDE4DF;              /* slightly deeper linen */
+  --muted-foreground: #5E5259;   /* secondary text */
+  --border: #E3D7D1;
+  --input: #E3D7D1;
+
+  /* Brand */
+  --primary: #62415B;            /* plum — links, buttons, contact block */
+  --primary-foreground: #FFFCFA;
+  --ring: #62415B;
+
+  /* Accent tints (used for stickers, chips, section backgrounds) */
+  --sky: #8CC4D8;                /* teal — sparkles, badges, pops on plum */
+  --mist: #D4EAF0;               /* pale teal — pills, photo frames, About background */
+  --blush: #EBDCE6;              /* pale plum — cards, Education background */
+  --mauve: #D6BFD0;              /* soft plum — chips, Experience background */
+  --honey: #EFCA87;              /* golden yellow — sticker, highlights, tape */
+
+  /* Component colors (rarely need changing) */
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --secondary: var(--mist);
+  --secondary-foreground: var(--ink);
+  --accent: var(--mauve);
+  --accent-foreground: var(--ink);
+  --destructive: #C0392B;
+  --destructive-foreground: #FFFFFF;
+
+  --shadow-paper: 0 1px 0 color-mix(in oklab, var(--ink) 6%, transparent), 0 12px 30px -14px color-mix(in oklab, var(--ink) 28%, transparent);
+  --shadow-lift: 0 2px 0 color-mix(in oklab, var(--ink) 8%, transparent), 0 24px 40px -18px color-mix(in oklab, var(--ink) 35%, transparent);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image: radial-gradient(color-mix(in oklab, var(--ink) 4%, transparent) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  h1, h2, h3 { font-family: var(--font-serif); letter-spacing: -0.02em; }
+  :focus-visible { outline: 2px dashed var(--primary); outline-offset: 3px; border-radius: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+@utility paper { background: var(--paper); box-shadow: var(--shadow-paper); }
+@utility shadow-paper { box-shadow: var(--shadow-paper); }
+@utility shadow-lift { box-shadow: var(--shadow-lift); }
+
+@utility hl {
+  background: linear-gradient(transparent 58%, color-mix(in oklab, var(--honey) 75%, transparent) 58%, color-mix(in oklab, var(--honey) 75%, transparent) 90%, transparent 90%);
+  padding: 0 0.1em;
+}
+
+@utility link-ink {
+  background: linear-gradient(currentColor, currentColor) left bottom / 0% 2px no-repeat;
+  transition: background-size 0.3s ease;
+  &:hover, &:focus-visible { background-size: 100% 2px; }
+}
+
+@utility tape {
+  position: absolute;
+  width: 84px; height: 24px;
+  background: color-mix(in oklab, var(--honey) 42%, transparent);
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--ink) 12%, transparent);
+}
+
+@utility spin-slow { animation: spin 18s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes wiggle { 0%,100% { transform: rotate(-6deg) } 50% { transform: rotate(8deg) } }
+@utility hover-wiggle { &:hover { animation: wiggle 0.5s ease-in-out; } }
